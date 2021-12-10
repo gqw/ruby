@@ -2,8 +2,6 @@
 /Library
 /Logs
 /obj
-/ProjectSettings
-/UserSettings
 /.vsconfig
 /*.csproj
 /*.sln
