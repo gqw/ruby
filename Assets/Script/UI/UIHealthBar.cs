@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UIHealthBar : MonoBehaviour
 {
-    [SerializeField] private Image mask;
+    [SerializeField] Image mask = null;
     float originalSize;
 
     private void Awake()

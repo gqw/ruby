@@ -6,8 +6,9 @@ using UnityEngine.UI;
 public class RubyController : MonoBehaviour
 {
     public float speed = 6.0f;
-    public uint maxHealth = 5;
-    public uint curHealth = 0;
+    public uint maxHealth = 250;
+    public uint curHealth = 250;
+    public GameObject projectile;
 
     Animator _animator;
     Rigidbody2D _rigidbody2d;
@@ -51,6 +52,11 @@ public class RubyController : MonoBehaviour
         position.x = position.x + speed * horizontal * Time.deltaTime;
         position.y = position.y + speed * vertical * Time.deltaTime;
         _rigidbody2d.MovePosition(position);
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            Launch();
+        }
     }
 
     private void FixedUpdate()
@@ -69,5 +75,15 @@ public class RubyController : MonoBehaviour
     public bool IsFullHealth()
     {
         return curHealth == maxHealth;
+    }
+
+    void Launch()
+    {
+        var pos = _rigidbody2d.position + Vector2.up * 0.5f;
+        Debug.Log($"ruby's pos: {_rigidbody2d.position.ToString()}, up: {Vector2.up} bullet pos: {pos.ToString()}");
+        var projectilePrefab = Instantiate(projectile, _rigidbody2d.position + Vector2.up * 0.5f, Quaternion.identity);
+        var projectileObj = projectilePrefab.GetComponent<Projectile>();
+        projectileObj.Launcher(this.gameObject, _lookDirection, 300.0f);
+        _animator.SetTrigger("Launch");
     }
 }
